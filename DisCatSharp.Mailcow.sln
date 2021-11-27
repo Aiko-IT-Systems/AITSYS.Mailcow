@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DisCatSharp.Mailcow", "DisC
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution", "Solution", "{45D3D338-6122-4037-AD90-03D8D9CA2B4D}"
 	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		.gitattributes = .gitattributes
 		DisCatSharp.targets = DisCatSharp.targets
 		NuGet.targets = NuGet.targets
 		Package.targets = Package.targets
