@@ -1,9 +1,15 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
+  <Import Project="../Version.targets" />
+  <Import Project="../DisCatSharp.targets" />
+  <Import Project="../Package.targets" />
+  <Import Project="../NuGet.targets" />
+  
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
   </PropertyGroup>
 
 </Project>
