@@ -106,6 +106,7 @@ namespace DisCatSharp.Mailcow
 
         public Task<VmailStatus> GetVmailStatusAsync()
             => this.ApiClient.GetVmailStatusAsync();
+
         #endregion
 
         /// <summary>
