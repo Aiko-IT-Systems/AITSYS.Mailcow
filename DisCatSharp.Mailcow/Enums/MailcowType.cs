@@ -21,28 +21,30 @@
 // SOFTWARE.
 
 using System;
-using DisCatSharp.Mailcow.Enums;
+using Newtonsoft.Json.Converters;
 using Newtonsoft.Json;
 
-namespace DisCatSharp.Mailcow.Entities
+namespace DisCatSharp.Mailcow.Enums
 {
-    public class ContainerStatus
+    [Serializable]
+    [JsonConverter(typeof(StringEnumConverter))]
+    internal class CustomMailcowType : Enumeration
     {
-        [JsonProperty("type")]
-        public MailcowType Type;
+        internal static CustomMailcowType Information = new(0, "info");
+        internal static CustomMailcowType Success = new(1, "success");
+        internal static CustomMailcowType Danger = new(2, "danger");
+        internal static CustomMailcowType Error = new(3, "error");
 
-        [JsonProperty("container")]
-        public string ContainerName;
+        internal CustomMailcowType(int id, string name) : base(id, name) { }
+    }
 
-        [JsonProperty("state")]
-        public MailcowState State;
-
-        [JsonProperty("started_at")]
-        public DateTimeOffset StartedAt;
-
-        [JsonProperty("image")]
-        public string ImageName;
-
-        internal ContainerStatus() { }
+    [Serializable]
+    [JsonConverter(typeof(StringEnumConverter))]
+    public enum MailcowType
+    {
+        Info,
+        Success,
+        Danger,
+        Error
     }
 }

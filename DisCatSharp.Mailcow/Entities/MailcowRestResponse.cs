@@ -20,29 +20,17 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-using System;
 using DisCatSharp.Mailcow.Enums;
 using Newtonsoft.Json;
 
 namespace DisCatSharp.Mailcow.Entities
 {
-    public class ContainerStatus
+    public class MailcowRestResponse
     {
         [JsonProperty("type")]
         public MailcowType Type;
 
-        [JsonProperty("container")]
-        public string ContainerName;
-
-        [JsonProperty("state")]
-        public MailcowState State;
-
-        [JsonProperty("started_at")]
-        public DateTimeOffset StartedAt;
-
-        [JsonProperty("image")]
-        public string ImageName;
-
-        internal ContainerStatus() { }
+        [JsonProperty("msg", NullValueHandling = NullValueHandling.Ignore)]
+        public string Message;
     }
 }

@@ -20,6 +20,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+using DisCatSharp.Mailcow.Enums;
 using Newtonsoft.Json;
 
 namespace DisCatSharp.Mailcow.Entities
@@ -27,7 +28,7 @@ namespace DisCatSharp.Mailcow.Entities
     public class SolrStatus
     {
         [JsonProperty("type")]
-        public string Type;
+        public MailcowType Type;
 
         [JsonProperty("solr_enabled")]
         public bool Enabled;
