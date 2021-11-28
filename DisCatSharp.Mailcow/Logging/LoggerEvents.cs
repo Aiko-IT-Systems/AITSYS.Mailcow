@@ -40,23 +40,18 @@ namespace DisCatSharp.Mailcow
         public static EventId Startup { get; } = new EventId(101, nameof(Startup));
 
         /// <summary>
-        /// Events typically emitted whenever WebSocket connections fail or are terminated.
-        /// </summary>
-        public static EventId ConnectionFailure { get; } = new EventId(102, nameof(ConnectionFailure));
-
-        /// <summary>
         /// Events emitted when REST processing fails for any reason.
         /// </summary>
-        public static EventId RestError { get; } = new EventId(103, nameof(RestError));
+        public static EventId RestError { get; } = new EventId(102, nameof(RestError));
 
         /// <summary>
         /// Events containing raw payloads, as they're received from Mailcows's REST API.
         /// </summary>
-        public static EventId RestRx { get; } = new EventId(104, "REST ↓");
+        public static EventId RestRx { get; } = new EventId(103, "REST ↓");
 
         /// <summary>
         /// Events containing raw payloads, as they're sent to Mailcows's REST API.
         /// </summary>
-        public static EventId RestTx { get; } = new EventId(105, "REST ↑");
+        public static EventId RestTx { get; } = new EventId(104, "REST ↑");
     }
 }
