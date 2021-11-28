@@ -26,6 +26,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 
 namespace DisCatSharp.Mailcow.Rest
 {
@@ -35,6 +36,8 @@ namespace DisCatSharp.Mailcow.Rest
         /// Gets the mailcow client.
         /// </summary>
         internal MailcowClient Mailcow { get; }
+
+        internal HttpClient _client = new();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MailcowApiClient"/> class.
@@ -74,6 +77,42 @@ namespace DisCatSharp.Mailcow.Rest
         /// <param name="payload">The payload.</param>
         /// <returns>A Task.</returns>
         internal Task<HttpResponseMessage> DoRequestAsync(MailcowClient client, Uri url, HttpMethod method, string route, IReadOnlyDictionary<string, string> headers = null, string payload = null)
-            => throw new NotImplementedException();
+        {
+            HttpRequestMessage request = new(method, $"{url}{route}");
+            request.Headers.Add("X-API-Key", client.Configuration.Token);
+            request.Headers.Add("User-Agent", Utilities.VersionHeader);
+            request.Headers.Add("Accept", "application/json");
+            foreach(var header in headers)
+            {
+                request.Headers.Add(header.Key, header.Value);
+            }
+            if (payload != null)
+            {
+                request.Content = new StringContent(payload, Utilities.UTF8, "application/json");
+            }
+
+            return _client.SendAsync(request, HttpCompletionOption.ResponseContentRead);
+        }
+
+        internal async Task<string> TestAsync()
+        {
+            var route = $"{Endpoints.GET}{Endpoints.STATUS}{Endpoints.CONTAINERS}";
+            Bucket.GetBucket(route, new { }, out var path);
+
+            var url = Utilities.GetApiUriFor(path, this.Mailcow.Configuration);
+            var result = await this.DoRequestAsync(this.Mailcow, url, HttpMethod.Get, route);
+
+            if (result.IsSuccessStatusCode)
+            {
+                return await result.Content.ReadAsStringAsync();
+            }
+            else
+            {
+                this.Mailcow.Logger.LogError(LoggerEvents.RestError, result.ReasonPhrase);
+                this.Mailcow.Logger.LogError(LoggerEvents.RestError, result.Content.ReadAsStringAsync().Result);
+                return null;
+            }
+        }
+        
     }
 }

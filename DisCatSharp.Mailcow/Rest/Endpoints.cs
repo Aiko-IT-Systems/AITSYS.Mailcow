@@ -28,9 +28,12 @@ namespace DisCatSharp.Mailcow.Rest
     /// </summary>
     public static class Endpoints
     {
-        /// <summary>
-        /// The oauth2 endpoint.
-        /// </summary>
-        public const string OAUTH2 = "/oauth2";
+        public const string API_ENDPOINT = "/api/v1";
+
+        public const string GET = "/get";
+
+        public const string STATUS = "/status";
+
+        public const string CONTAINERS = "/containers";
     }
 }

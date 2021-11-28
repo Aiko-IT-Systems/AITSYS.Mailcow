@@ -47,6 +47,22 @@ namespace DisCatSharp.Mailcow
         private string _token = "";
 
         /// <summary>
+        /// Sets the host url used to use the api.
+        /// </summary>
+        public string Host
+        {
+            internal get => this._host;
+            set
+            {
+                if (string.IsNullOrWhiteSpace(value))
+                    throw new ArgumentNullException(nameof(value), "Token cannot be null, empty, or all whitespace.");
+
+                this._host = value;
+            }
+        }
+        private string _host = "";
+
+        /// <summary>
         /// <para>Sets the minimum logging level for messages.</para>
         /// <para>Typically, the default value of <see cref="Microsoft.Extensions.Logging.LogLevel.Information"/> is ok for most uses.</para>
         /// </summary>

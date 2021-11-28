@@ -21,10 +21,6 @@
 // SOFTWARE.
 
 using System;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using DisCatSharp.Mailcow.Rest;
@@ -91,6 +87,9 @@ namespace DisCatSharp.Mailcow
 
             this.Library = "DisCatSharp.Mailcow";
         }
+
+        public Task<string> TestAsync()
+            => this.ApiClient.TestAsync();
 
         /// <summary>
         /// Disposes this client.
