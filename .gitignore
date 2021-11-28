@@ -285,8 +285,7 @@ __pycache__/
 build/
 
 ### Built docs
-DisCatSharp.Docs/_site/
-DisCatSharp.Docs/_site_pdf/
+DisCatSharp.Mailcow.Docs/_site/
 
 # Docs build artifacts
 docfx/
