@@ -26,6 +26,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using DisCatSharp.Mailcow.Enums;
 using DisCatSharp.Mailcow.Rest;
 using Microsoft.Extensions.Logging;
 
@@ -105,6 +106,16 @@ namespace DisCatSharp.Mailcow
         /// <returns>A Dictionary.</returns>
         internal static Dictionary<string, string> GetBaseHeaders()
             => new();
+
+        internal static bool GetBool(MailcowBool mailcowBool)
+        {
+            return mailcowBool switch
+            {
+                MailcowBool.True => true,
+                MailcowBool.False => false,
+                _ => false,
+            };
+        }
 
         /// <summary>
         /// Helper method to create a <see cref="System.DateTimeOffset"/> from Unix time seconds for targets that do not support this natively.
