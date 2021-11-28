@@ -26,7 +26,9 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
+using DisCatSharp.Mailcow.Entities;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 
 namespace DisCatSharp.Mailcow.Rest
 {
@@ -101,34 +103,70 @@ namespace DisCatSharp.Mailcow.Rest
             return this.Client.SendAsync(request, HttpCompletionOption.ResponseContentRead);
         }
 
-        internal async Task<string> TestAsync()
+        internal async Task<MailcowStatus> GetMailcowStatusAsync()
         {
-            try
-            {
-                var route = $"{Endpoints.GET}{Endpoints.STATUS}{Endpoints.CONTAINERS}";
-                Bucket.GetBucket(route, new { }, out var path);
-                this.Mailcow.Logger.LogDebug(this.Mailcow.Configuration.Host);
-                var url = Utilities.GetApiUriFor(path, this.Mailcow.Configuration);
-                var result = await this.DoRequestAsync(this.Mailcow, url, HttpMethod.Get, route);
+            var route = $"{Endpoints.GET}{Endpoints.STATUS}{Endpoints.CONTAINERS}";
+            Bucket.GetBucket(route, new { }, out var path);
+            this.Mailcow.Logger.LogDebug(this.Mailcow.Configuration.Host);
+            var url = Utilities.GetApiUriFor(path, this.Mailcow.Configuration);
+            var result = await this.DoRequestAsync(this.Mailcow, url, HttpMethod.Get, route);
 
-                if (result.IsSuccessStatusCode)
-                {
-                    return await result.Content.ReadAsStringAsync();
-                }
-                else
-                {
-                    this.Mailcow.Logger.LogError(LoggerEvents.RestError, result.ReasonPhrase);
-                    this.Mailcow.Logger.LogError(LoggerEvents.RestError, result.Content.ReadAsStringAsync().Result);
-                    return null;
-                }
-            }
-            catch (Exception ex)
+            if (result.IsSuccessStatusCode)
             {
-                this.Mailcow.Logger.LogError(ex.HResult, ex.Message, null);
-                this.Mailcow.Logger.LogError(ex.HResult, ex.StackTrace, null);
+                var json = await result.Content.ReadAsStringAsync();
+                var mailcow_status = JsonConvert.DeserializeObject<MailcowStatus>(json);
+                return mailcow_status;
+            }
+            else
+            {
+                this.Mailcow.Logger.LogError(LoggerEvents.RestError, result.ReasonPhrase);
+                this.Mailcow.Logger.LogError(LoggerEvents.RestError, result.Content.ReadAsStringAsync().Result);
                 return null;
             }
         }
-        
+
+        internal async Task<SolrStatus> GetSolrStatusAsync()
+        {
+            var route = $"{Endpoints.GET}{Endpoints.STATUS}{Endpoints.SOLR}";
+            Bucket.GetBucket(route, new { }, out var path);
+            this.Mailcow.Logger.LogDebug(this.Mailcow.Configuration.Host);
+            var url = Utilities.GetApiUriFor(path, this.Mailcow.Configuration);
+            var result = await this.DoRequestAsync(this.Mailcow, url, HttpMethod.Get, route);
+
+            if (result.IsSuccessStatusCode)
+            {
+                var json = await result.Content.ReadAsStringAsync();
+                var mailcow_status = JsonConvert.DeserializeObject<SolrStatus>(json);
+                return mailcow_status;
+            }
+            else
+            {
+                this.Mailcow.Logger.LogError(LoggerEvents.RestError, result.ReasonPhrase);
+                this.Mailcow.Logger.LogError(LoggerEvents.RestError, result.Content.ReadAsStringAsync().Result);
+                return null;
+            }
+        }
+
+        internal async Task<VmailStatus> GetVmailStatusAsync()
+        {
+            var route = $"{Endpoints.GET}{Endpoints.STATUS}{Endpoints.VMAIL}";
+            Bucket.GetBucket(route, new { }, out var path);
+            this.Mailcow.Logger.LogDebug(this.Mailcow.Configuration.Host);
+            var url = Utilities.GetApiUriFor(path, this.Mailcow.Configuration);
+            var result = await this.DoRequestAsync(this.Mailcow, url, HttpMethod.Get, route);
+
+            if (result.IsSuccessStatusCode)
+            {
+                var json = await result.Content.ReadAsStringAsync();
+                var mailcow_status = JsonConvert.DeserializeObject<VmailStatus>(json);
+                return mailcow_status;
+            }
+            else
+            {
+                this.Mailcow.Logger.LogError(LoggerEvents.RestError, result.ReasonPhrase);
+                this.Mailcow.Logger.LogError(LoggerEvents.RestError, result.Content.ReadAsStringAsync().Result);
+                return null;
+            }
+        }
     }
 }

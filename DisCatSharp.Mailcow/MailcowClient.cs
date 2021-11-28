@@ -23,6 +23,7 @@
 using System;
 using System.Reflection;
 using System.Threading.Tasks;
+using DisCatSharp.Mailcow.Entities;
 using DisCatSharp.Mailcow.Rest;
 using Microsoft.Extensions.Logging;
 
@@ -88,8 +89,14 @@ namespace DisCatSharp.Mailcow
             this.Library = "DisCatSharp.Mailcow";
         }
 
-        public Task<string> TestAsync()
-            => this.ApiClient.TestAsync();
+        public Task<MailcowStatus> GetContainerStatusAsync()
+            => this.ApiClient.GetMailcowStatusAsync();
+
+        public Task<SolrStatus> GetSolrStatusAsync()
+            => this.ApiClient.GetSolrStatusAsync();
+
+        public Task<VmailStatus> GetVmailStatusAsync()
+            => this.ApiClient.GetVmailStatusAsync();
 
         /// <summary>
         /// Disposes this client.

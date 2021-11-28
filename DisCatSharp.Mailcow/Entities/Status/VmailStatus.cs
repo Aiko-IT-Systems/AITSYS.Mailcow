@@ -20,35 +20,28 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-namespace DisCatSharp.Mailcow.Rest
+using System;
+using Newtonsoft.Json;
+
+namespace DisCatSharp.Mailcow.Entities
 {
-
-    /// <summary>
-    /// The mailcow endpoints.
-    /// </summary>
-    public static class Endpoints
+    public class VmailStatus
     {
-        public const string API_ENDPOINT = "/api/v1";
+        [JsonProperty("type")]
+        public string Type;
 
-        #region Methods
-        public const string GET = "/get";
+        [JsonProperty("disk")]
+        public string Disk;
 
-        public const string ADD = "/add";
+        [JsonProperty("used")]
+        public string Used;
 
-        public const string EDIT = "/edit";
+        [JsonProperty("total")]
+        public string Total;
 
-        public const string DELETE = "/delete";
-        #endregion
+        [JsonProperty("used_percent")]
+        public string UsedPercent;
 
-
-        #region Status
-        public const string STATUS = "/status";
-
-        public const string CONTAINERS = "/containers";
-
-        public const string SOLR = "/solr";
-
-        public const string VMAIL = "/vmail";
-        #endregion
+        internal VmailStatus() { }
     }
 }

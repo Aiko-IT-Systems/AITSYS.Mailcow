@@ -20,35 +20,28 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-namespace DisCatSharp.Mailcow.Rest
+using System;
+using Newtonsoft.Json;
+
+namespace DisCatSharp.Mailcow.Entities
 {
-
-    /// <summary>
-    /// The mailcow endpoints.
-    /// </summary>
-    public static class Endpoints
+    public class ContainerStatus
     {
-        public const string API_ENDPOINT = "/api/v1";
+        [JsonProperty("type")]
+        public string Type;
 
-        #region Methods
-        public const string GET = "/get";
+        [JsonProperty("container")]
+        public string ContainerName;
 
-        public const string ADD = "/add";
+        [JsonProperty("state")]
+        public string State;
 
-        public const string EDIT = "/edit";
+        [JsonProperty("started_at")]
+        public DateTimeOffset StartedAt;
 
-        public const string DELETE = "/delete";
-        #endregion
+        [JsonProperty("image")]
+        public string ImageName;
 
-
-        #region Status
-        public const string STATUS = "/status";
-
-        public const string CONTAINERS = "/containers";
-
-        public const string SOLR = "/solr";
-
-        public const string VMAIL = "/vmail";
-        #endregion
+        internal ContainerStatus() { }
     }
 }
