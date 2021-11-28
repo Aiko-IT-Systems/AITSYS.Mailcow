@@ -69,7 +69,7 @@ namespace DisCatSharp.Mailcow
         /// <param name="config">The config</param>
         /// <returns>A string.</returns>
         internal static string GetApiBaseUri(MailcowConfiguration config)
-            => config.Host + Endpoints.API_ENDPOINT;
+            => $"{config.Host}{Endpoints.API_ENDPOINT}";
 
         /// <summary>
         /// Gets the api uri for.

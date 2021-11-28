@@ -37,7 +37,7 @@ namespace DisCatSharp.Mailcow.Rest
         /// </summary>
         internal MailcowClient Mailcow { get; }
 
-        internal HttpClient _client = new();
+        internal HttpClient Client { get; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MailcowApiClient"/> class.
@@ -46,6 +46,8 @@ namespace DisCatSharp.Mailcow.Rest
         internal MailcowApiClient(MailcowClient client)
         {
             this.Mailcow = client;
+            var _httpHandler = new HttpClientHandler() { CookieContainer = new CookieContainer(), AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate | DecompressionMethods.None };
+            this.Client = new HttpClient(_httpHandler);
         }
 
         /// <summary>
@@ -82,34 +84,46 @@ namespace DisCatSharp.Mailcow.Rest
             request.Headers.Add("X-API-Key", client.Configuration.Token);
             request.Headers.Add("User-Agent", Utilities.VersionHeader);
             request.Headers.Add("Accept", "application/json");
-            foreach(var header in headers)
+            if (headers != null)
             {
-                request.Headers.Add(header.Key, header.Value);
+                foreach (var header in headers)
+                {
+                    request.Headers.Add(header.Key, header.Value);
+                }
             }
             if (payload != null)
             {
                 request.Content = new StringContent(payload, Utilities.UTF8, "application/json");
             }
 
-            return _client.SendAsync(request, HttpCompletionOption.ResponseContentRead);
+            return this.Client.SendAsync(request, HttpCompletionOption.ResponseContentRead);
         }
 
         internal async Task<string> TestAsync()
         {
-            var route = $"{Endpoints.GET}{Endpoints.STATUS}{Endpoints.CONTAINERS}";
-            Bucket.GetBucket(route, new { }, out var path);
-
-            var url = Utilities.GetApiUriFor(path, this.Mailcow.Configuration);
-            var result = await this.DoRequestAsync(this.Mailcow, url, HttpMethod.Get, route);
-
-            if (result.IsSuccessStatusCode)
+            try
             {
-                return await result.Content.ReadAsStringAsync();
+                var route = $"{Endpoints.GET}{Endpoints.STATUS}{Endpoints.CONTAINERS}";
+                Bucket.GetBucket(route, new { }, out var path);
+                this.Mailcow.Logger.LogDebug(this.Mailcow.Configuration.Host);
+                var url = Utilities.GetApiUriFor(path, this.Mailcow.Configuration);
+                var result = await this.DoRequestAsync(this.Mailcow, url, HttpMethod.Get, route);
+
+                if (result.IsSuccessStatusCode)
+                {
+                    return await result.Content.ReadAsStringAsync();
+                }
+                else
+                {
+                    this.Mailcow.Logger.LogError(LoggerEvents.RestError, result.ReasonPhrase);
+                    this.Mailcow.Logger.LogError(LoggerEvents.RestError, result.Content.ReadAsStringAsync().Result);
+                    return null;
+                }
             }
-            else
+            catch (Exception ex)
             {
-                this.Mailcow.Logger.LogError(LoggerEvents.RestError, result.ReasonPhrase);
-                this.Mailcow.Logger.LogError(LoggerEvents.RestError, result.Content.ReadAsStringAsync().Result);
+                this.Mailcow.Logger.LogError(ex.HResult, ex.Message, null);
+                this.Mailcow.Logger.LogError(ex.HResult, ex.StackTrace, null);
                 return null;
             }
         }

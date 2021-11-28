@@ -94,6 +94,7 @@ namespace DisCatSharp.Mailcow
         public MailcowConfiguration(MailcowConfiguration other)
         {
             this.Token = other.Token;
+            this.Host = other.Host;
             this.MinimumLogLevel = other.MinimumLogLevel;
             this.LogTimestampFormat = other.LogTimestampFormat;
             this.LoggerFactory = other.LoggerFactory;
