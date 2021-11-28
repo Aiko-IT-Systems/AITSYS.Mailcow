@@ -6,7 +6,7 @@ title: DisCatSharp.Mailcow 1.0.0 Documentation
 <h1 class="delet-this">DisCatSharp.Mailcow 1.0.0 Documentation</h1>
 <h1 class="logo-center">![DisCatSharp Logo](/logobig.png "DisCatSharp.Mailcow Documentation")</h1>
 ## DisCatSharp.Mailcow 1.0.0 Documentation
-[DisCatSharp.Mailcow](https://github.com/Aiko-IT-Systems/DisCatSharp.Mailcow) (DCS) is an .NET wrapper for the Mailcow API.
+[DisCatSharp.Mailcow](https://github.com/Aiko-IT-Systems/DisCatSharp.Mailcow) (DCSM) is an .NET wrapper for the Mailcow API.
 
 ## Getting Started
 New users will want to take a look through the [articles](xref:preamble) for quick start guides, tutorials, and examples of use.<br/>
