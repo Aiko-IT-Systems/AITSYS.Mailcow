@@ -3,7 +3,7 @@
 	<PropertyGroup>
         <Authors>Lala Sabathil, AITSYS contributors</Authors>
         <Company>Aiko IT Systems</Company>
-        <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
+        <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
         <PackageProjectUrl>https://github.com/Aiko-IT-Systems/DisCatSharp.Mailcow</PackageProjectUrl>
         <RepositoryUrl>https://github.com/Aiko-IT-Systems/DisCatSharp.Mailcow</RepositoryUrl>
         <RepositoryType>Git</RepositoryType>

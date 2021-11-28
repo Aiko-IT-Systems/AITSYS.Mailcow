@@ -1,21 +1,20 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <Import Project="../Version.targets" />
-  <Import Project="../DisCatSharp.targets" />
-  <Import Project="../Package.targets" />
-  <Import Project="../NuGet.targets" />
+  <Import Project="../Targets/Version.targets" />
+  <Import Project="../Targets/DisCatSharp.Mailcow.targets" />
+  <Import Project="../Targets/Package.targets" />
+  <Import Project="../Targets/NuGet.targets" />
   
   <PropertyGroup>
     <AssemblyName>DisCatSharp.Mailcow</AssemblyName>
     <RootNamespace>DisCatSharp.Mailcow</RootNamespace>
-    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <OutputType>Library</OutputType>
     <TargetFrameworks>netstandard2.0</TargetFrameworks>
   </PropertyGroup>
   
   <PropertyGroup>
     <PackageId>DisCatSharp.Mailcow</PackageId>
-    <Description>Another C# API/Framework for Mailcow.</Description>
+    <Description>A C# API/Framework for Mailcow.</Description>
     <PackageTags>mailcow, mailcow-api, bots, dcs, discatsharp, csharp, dotnet, vb-net, fsharp</PackageTags>
     <PackageLicenseExpression />
     <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
@@ -46,10 +45,6 @@
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>
-  </ItemGroup>
-  
-  <ItemGroup>
-    <Folder Include="Enums\" />
   </ItemGroup>
 
 </Project>

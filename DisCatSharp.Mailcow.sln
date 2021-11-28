@@ -9,10 +9,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution", "Solution", "{45
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
 		.gitattributes = .gitattributes
-		DisCatSharp.targets = DisCatSharp.targets
-		NuGet.targets = NuGet.targets
-		Package.targets = Package.targets
-		Version.targets = Version.targets
+		Targets\DisCatSharp.Mailcow.targets = Targets\DisCatSharp.Mailcow.targets
+		Targets\NuGet.targets = Targets\NuGet.targets
+		Targets\Package.targets = Targets\Package.targets
+		Targets\Version.targets = Targets\Version.targets
 	EndProjectSection
 EndProject
 Global

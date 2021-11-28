@@ -48,6 +48,7 @@ namespace DisCatSharp.Mailcow
 
         /// <summary>
         /// Sets the host url used to use the api.
+        /// Example: https://mail.example.com.
         /// </summary>
         public string Host
         {
