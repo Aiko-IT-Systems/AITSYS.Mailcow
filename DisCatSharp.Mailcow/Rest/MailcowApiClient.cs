@@ -39,6 +39,8 @@ namespace DisCatSharp.Mailcow.Rest
 
         internal HttpClient Client { get; }
 
+        internal const string API_HEADER = "X-API-Key";
+
         /// <summary>
         /// Initializes a new instance of the <see cref="MailcowApiClient"/> class.
         /// </summary>
@@ -81,7 +83,7 @@ namespace DisCatSharp.Mailcow.Rest
         internal Task<HttpResponseMessage> DoRequestAsync(MailcowClient client, Uri url, HttpMethod method, string route, IReadOnlyDictionary<string, string> headers = null, string payload = null)
         {
             HttpRequestMessage request = new(method, $"{url}{route}");
-            request.Headers.Add("X-API-Key", client.Configuration.Token);
+            request.Headers.Add(API_HEADER, client.Configuration.Token);
             request.Headers.Add("User-Agent", Utilities.VersionHeader);
             request.Headers.Add("Accept", "application/json");
             if (headers != null)
