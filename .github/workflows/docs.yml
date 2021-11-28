@@ -38,7 +38,7 @@ jobs:
 
     - name: Extract new docs
       run: |
-        tar -xf dcs-mailcow.tar.xz -C ./DisCatSharp.Mailcow.Docs
+        tar -xf dcs-mailcow-docs.tar.xz -C ./DisCatSharp.Mailcow.Docs
 
     - name: Commit and push changes
       uses: EndBug/add-and-commit@master
