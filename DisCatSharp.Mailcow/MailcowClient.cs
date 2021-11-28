@@ -21,6 +21,7 @@
 // SOFTWARE.
 
 using System;
+using System.Collections.Generic;
 using System.Reflection;
 using System.Threading.Tasks;
 using DisCatSharp.Mailcow.Entities;
@@ -89,6 +90,14 @@ namespace DisCatSharp.Mailcow
             this.Library = "DisCatSharp.Mailcow";
         }
 
+        #region Methods
+
+        public Task<MailcowDomain> GetDomainAsync(string domain)
+            => this.ApiClient.GetDomainAsync(domain);
+
+        public Task<IReadOnlyCollection<MailcowDomain>> GetAllDomainsAsync()
+            => this.ApiClient.GetAllDomainsAsync();
+
         public Task<MailcowStatus> GetContainerStatusAsync()
             => this.ApiClient.GetMailcowStatusAsync();
 
@@ -97,6 +106,7 @@ namespace DisCatSharp.Mailcow
 
         public Task<VmailStatus> GetVmailStatusAsync()
             => this.ApiClient.GetVmailStatusAsync();
+        #endregion
 
         /// <summary>
         /// Disposes this client.

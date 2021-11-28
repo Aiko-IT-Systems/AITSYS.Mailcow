@@ -40,6 +40,7 @@ namespace DisCatSharp.Mailcow.Rest
         public const string DELETE = "/delete";
         #endregion
 
+        public const string DOMAIN = "/domain";
 
         #region Status
         public const string STATUS = "/status";
@@ -50,5 +51,7 @@ namespace DisCatSharp.Mailcow.Rest
 
         public const string VMAIL = "/vmail";
         #endregion
+
+        public const string ALL = "/all";
     }
 }

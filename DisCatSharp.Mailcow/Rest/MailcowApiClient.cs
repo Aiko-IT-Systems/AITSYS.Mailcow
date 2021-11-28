@@ -54,6 +54,8 @@ namespace DisCatSharp.Mailcow.Rest
             this.Client = new HttpClient(_httpHandler);
         }
 
+        #region Internals
+
         /// <summary>
         /// Builds the query string.
         /// </summary>
@@ -101,6 +103,50 @@ namespace DisCatSharp.Mailcow.Rest
             }
 
             return this.Client.SendAsync(request, HttpCompletionOption.ResponseContentRead);
+        }
+        #endregion
+
+        internal async Task<MailcowDomain> GetDomainAsync(string domain)
+        {
+            var route = $"{Endpoints.GET}{Endpoints.DOMAIN}/:domain";
+            Bucket.GetBucket(route, new { domain }, out var path);
+            this.Mailcow.Logger.LogDebug(this.Mailcow.Configuration.Host);
+            var url = Utilities.GetApiUriFor(path, this.Mailcow.Configuration);
+            var result = await this.DoRequestAsync(this.Mailcow, url, HttpMethod.Get, route);
+
+            if (result.IsSuccessStatusCode)
+            {
+                var domain_json = await result.Content.ReadAsStringAsync();
+                return JsonConvert.DeserializeObject<MailcowDomain>(domain_json);
+            }
+            else
+            {
+                this.Mailcow.Logger.LogError(LoggerEvents.RestError, result.ReasonPhrase);
+                this.Mailcow.Logger.LogError(LoggerEvents.RestError, result.Content.ReadAsStringAsync().Result);
+                return null;
+            }
+        }
+
+        internal async Task<IReadOnlyCollection<MailcowDomain>> GetAllDomainsAsync()
+        {
+            var route = $"{Endpoints.GET}{Endpoints.DOMAIN}{Endpoints.ALL}";
+            Bucket.GetBucket(route, new { }, out var path);
+            this.Mailcow.Logger.LogDebug(this.Mailcow.Configuration.Host);
+            var url = Utilities.GetApiUriFor(path, this.Mailcow.Configuration);
+            var result = await this.DoRequestAsync(this.Mailcow, url, HttpMethod.Get, route);
+
+            if (result.IsSuccessStatusCode)
+            {
+                var domain_json = await result.Content.ReadAsStringAsync();
+                var domains = JsonConvert.DeserializeObject<List<MailcowDomain>>(domain_json);
+                return domains.AsReadOnly();
+            }
+            else
+            {
+                this.Mailcow.Logger.LogError(LoggerEvents.RestError, result.ReasonPhrase);
+                this.Mailcow.Logger.LogError(LoggerEvents.RestError, result.Content.ReadAsStringAsync().Result);
+                return null;
+            }
         }
 
         internal async Task<MailcowStatus> GetMailcowStatusAsync()
