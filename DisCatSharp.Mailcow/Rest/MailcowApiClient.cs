@@ -110,7 +110,6 @@ namespace DisCatSharp.Mailcow.Rest
         {
             var route = $"{Endpoints.GET}{Endpoints.DOMAIN}/:domain";
             Bucket.GetBucket(route, new { domain }, out var path);
-            this.Mailcow.Logger.LogDebug(this.Mailcow.Configuration.Host);
             var url = Utilities.GetApiUriFor(path, this.Mailcow.Configuration);
             var result = await this.DoRequestAsync(this.Mailcow, url, HttpMethod.Get, route);
 
@@ -131,7 +130,6 @@ namespace DisCatSharp.Mailcow.Rest
         {
             var route = $"{Endpoints.GET}{Endpoints.DOMAIN}{Endpoints.ALL}";
             Bucket.GetBucket(route, new { }, out var path);
-            this.Mailcow.Logger.LogDebug(this.Mailcow.Configuration.Host);
             var url = Utilities.GetApiUriFor(path, this.Mailcow.Configuration);
             var result = await this.DoRequestAsync(this.Mailcow, url, HttpMethod.Get, route);
 
@@ -153,7 +151,6 @@ namespace DisCatSharp.Mailcow.Rest
         {
             var route = $"{Endpoints.GET}{Endpoints.STATUS}{Endpoints.CONTAINERS}";
             Bucket.GetBucket(route, new { }, out var path);
-            this.Mailcow.Logger.LogDebug(this.Mailcow.Configuration.Host);
             var url = Utilities.GetApiUriFor(path, this.Mailcow.Configuration);
             var result = await this.DoRequestAsync(this.Mailcow, url, HttpMethod.Get, route);
 
@@ -175,7 +172,6 @@ namespace DisCatSharp.Mailcow.Rest
         {
             var route = $"{Endpoints.GET}{Endpoints.STATUS}{Endpoints.SOLR}";
             Bucket.GetBucket(route, new { }, out var path);
-            this.Mailcow.Logger.LogDebug(this.Mailcow.Configuration.Host);
             var url = Utilities.GetApiUriFor(path, this.Mailcow.Configuration);
             var result = await this.DoRequestAsync(this.Mailcow, url, HttpMethod.Get, route);
 
@@ -197,7 +193,6 @@ namespace DisCatSharp.Mailcow.Rest
         {
             var route = $"{Endpoints.GET}{Endpoints.STATUS}{Endpoints.VMAIL}";
             Bucket.GetBucket(route, new { }, out var path);
-            this.Mailcow.Logger.LogDebug(this.Mailcow.Configuration.Host);
             var url = Utilities.GetApiUriFor(path, this.Mailcow.Configuration);
             var result = await this.DoRequestAsync(this.Mailcow, url, HttpMethod.Get, route);
 
