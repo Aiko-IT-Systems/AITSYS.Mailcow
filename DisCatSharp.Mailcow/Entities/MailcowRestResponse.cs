@@ -32,5 +32,11 @@ namespace DisCatSharp.Mailcow.Entities
 
         [JsonProperty("msg", NullValueHandling = NullValueHandling.Ignore)]
         public string Message { get; internal set; }
+
+        internal MailcowRestResponse(MailcowType type, string message)
+        {
+            this.MessageType = type;
+            this.Message = message;
+        }
     }
 }

@@ -24,6 +24,7 @@ using System;
 using System.Net;
 using System.Net.Http;
 using DisCatSharp.Mailcow.Entities;
+using DisCatSharp.Mailcow.Enums;
 using Newtonsoft.Json;
 
 namespace DisCatSharp.Mailcow.Exceptions
@@ -37,11 +38,19 @@ namespace DisCatSharp.Mailcow.Exceptions
         internal MailcowRestException(HttpResponseMessage response, MailcowConfiguration config, string reason = null) : base(reason)
         {
             var json = response.Content.ReadAsStringAsync().Result;
-            var exception = JsonConvert.DeserializeObject<MailcowRestResponse>(json);
+            MailcowRestResponse exception;
+            try
+            {
+                exception = JsonConvert.DeserializeObject<MailcowRestResponse>(json);
+                this.StatusCode = response.StatusCode;
+            } catch(Exception)
+            {
+                exception = new(MailcowType.Error, "Err: Not found");
+                this.StatusCode = HttpStatusCode.NotFound;
+            }
             this.Exception = exception;
             this.Source = "Mailcow API";
             this.HelpLink = config.Host + "/api";
-            this.StatusCode = response.StatusCode;
         }
     }
 }

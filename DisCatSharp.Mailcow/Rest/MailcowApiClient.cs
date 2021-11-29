@@ -28,7 +28,6 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using DisCatSharp.Mailcow.Entities;
 using DisCatSharp.Mailcow.Exceptions;
-using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 
 namespace DisCatSharp.Mailcow.Rest
@@ -105,7 +104,7 @@ namespace DisCatSharp.Mailcow.Rest
 
             var response = await this.Client.SendAsync(request, HttpCompletionOption.ResponseContentRead);
 
-            return !response.IsSuccessStatusCode
+            return !response.IsSuccessStatusCode || response.Content.ReadAsStringAsync().Result == "{}"
                 ? throw new MailcowRestException(response, client.Configuration, response.ReasonPhrase ?? null)
                 : response;
         }
