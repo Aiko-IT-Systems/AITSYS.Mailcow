@@ -39,15 +39,8 @@ namespace DisCatSharp.Mailcow.Exceptions
         {
             var json = response.Content.ReadAsStringAsync().Result;
             MailcowRestResponse exception;
-            try
-            {
-                exception = JsonConvert.DeserializeObject<MailcowRestResponse>(json);
-                this.StatusCode = response.StatusCode;
-            } catch(Exception)
-            {
-                exception = new(MailcowType.Error, "Err: Not found");
-                this.StatusCode = HttpStatusCode.NotFound;
-            }
+            exception = JsonConvert.DeserializeObject<MailcowRestResponse>(json);
+            this.StatusCode = response.StatusCode;
             this.Exception = exception;
             this.Source = "Mailcow API";
             this.HelpLink = config.Host + "/api";
