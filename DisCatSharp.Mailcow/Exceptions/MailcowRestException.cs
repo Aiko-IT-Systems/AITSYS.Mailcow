@@ -20,17 +20,28 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-using DisCatSharp.Mailcow.Enums;
+using System;
+using System.Net;
+using System.Net.Http;
+using DisCatSharp.Mailcow.Entities;
 using Newtonsoft.Json;
 
-namespace DisCatSharp.Mailcow.Entities
+namespace DisCatSharp.Mailcow.Exceptions
 {
-    public class MailcowRestResponse
+    public class MailcowRestException : Exception
     {
-        [JsonProperty("type")]
-        public MailcowType MessageType { get; internal set; }
+        public MailcowRestResponse Exception { get; internal set; }
 
-        [JsonProperty("msg", NullValueHandling = NullValueHandling.Ignore)]
-        public string Message { get; internal set; }
+        public HttpStatusCode StatusCode { get; internal set; }
+
+        internal MailcowRestException(HttpResponseMessage response, MailcowConfiguration config, string reason = null) : base(reason)
+        {
+            var json = response.Content.ReadAsStringAsync().Result;
+            var exception = JsonConvert.DeserializeObject<MailcowRestResponse>(json);
+            this.Exception = exception;
+            this.Source = "Mailcow API";
+            this.HelpLink = config.Host + "/api";
+            this.StatusCode = response.StatusCode;
+        }
     }
 }

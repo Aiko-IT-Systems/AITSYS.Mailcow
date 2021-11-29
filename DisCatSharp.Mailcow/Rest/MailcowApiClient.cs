@@ -27,6 +27,7 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using DisCatSharp.Mailcow.Entities;
+using DisCatSharp.Mailcow.Exceptions;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 
@@ -84,7 +85,7 @@ namespace DisCatSharp.Mailcow.Rest
         /// <param name="headers">The headers.</param>
         /// <param name="payload">The payload.</param>
         /// <returns>A Task.</returns>
-        internal Task<HttpResponseMessage> DoRequestAsync(MailcowClient client, Uri url, HttpMethod method, string route, IReadOnlyDictionary<string, string> headers = null, string payload = null)
+        internal async Task<HttpResponseMessage> DoRequestAsync(MailcowClient client, Uri url, HttpMethod method, string route, IReadOnlyDictionary<string, string> headers = null, string payload = null)
         {
             HttpRequestMessage request = new(method, $"{url}{route}");
             request.Headers.Add(API_HEADER, client.Configuration.Token);
@@ -102,7 +103,11 @@ namespace DisCatSharp.Mailcow.Rest
                 request.Content = new StringContent(payload, Utilities.UTF8, "application/json");
             }
 
-            return this.Client.SendAsync(request, HttpCompletionOption.ResponseContentRead);
+            var response = await this.Client.SendAsync(request, HttpCompletionOption.ResponseContentRead);
+
+            return !response.IsSuccessStatusCode
+                ? throw new MailcowRestException(response, client.Configuration, response.ReasonPhrase ?? null)
+                : response;
         }
         #endregion
 
@@ -113,17 +118,8 @@ namespace DisCatSharp.Mailcow.Rest
             var url = Utilities.GetApiUriFor(path, this.Mailcow.Configuration);
             var result = await this.DoRequestAsync(this.Mailcow, url, HttpMethod.Get, route);
 
-            if (result.IsSuccessStatusCode)
-            {
-                var domain_json = await result.Content.ReadAsStringAsync();
-                return JsonConvert.DeserializeObject<MailcowDomain>(domain_json);
-            }
-            else
-            {
-                this.Mailcow.Logger.LogError(LoggerEvents.RestError, result.ReasonPhrase);
-                this.Mailcow.Logger.LogError(LoggerEvents.RestError, result.Content.ReadAsStringAsync().Result);
-                return null;
-            }
+            var domain_json = await result.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<MailcowDomain>(domain_json);
         }
 
         internal async Task<IReadOnlyCollection<MailcowDomain>> GetAllDomainsAsync()
@@ -133,18 +129,9 @@ namespace DisCatSharp.Mailcow.Rest
             var url = Utilities.GetApiUriFor(path, this.Mailcow.Configuration);
             var result = await this.DoRequestAsync(this.Mailcow, url, HttpMethod.Get, route);
 
-            if (result.IsSuccessStatusCode)
-            {
-                var domain_json = await result.Content.ReadAsStringAsync();
-                var domains = JsonConvert.DeserializeObject<List<MailcowDomain>>(domain_json);
-                return domains.AsReadOnly();
-            }
-            else
-            {
-                this.Mailcow.Logger.LogError(LoggerEvents.RestError, result.ReasonPhrase);
-                this.Mailcow.Logger.LogError(LoggerEvents.RestError, result.Content.ReadAsStringAsync().Result);
-                return null;
-            }
+            var domain_json = await result.Content.ReadAsStringAsync();
+            var domains = JsonConvert.DeserializeObject<List<MailcowDomain>>(domain_json);
+            return domains.AsReadOnly();
         }
 
         internal async Task<MailcowStatus> GetMailcowStatusAsync()
@@ -154,18 +141,9 @@ namespace DisCatSharp.Mailcow.Rest
             var url = Utilities.GetApiUriFor(path, this.Mailcow.Configuration);
             var result = await this.DoRequestAsync(this.Mailcow, url, HttpMethod.Get, route);
 
-            if (result.IsSuccessStatusCode)
-            {
-                var json = await result.Content.ReadAsStringAsync();
-                var mailcow_status = JsonConvert.DeserializeObject<MailcowStatus>(json);
-                return mailcow_status;
-            }
-            else
-            {
-                this.Mailcow.Logger.LogError(LoggerEvents.RestError, result.ReasonPhrase);
-                this.Mailcow.Logger.LogError(LoggerEvents.RestError, result.Content.ReadAsStringAsync().Result);
-                return null;
-            }
+            var json = await result.Content.ReadAsStringAsync();
+            var mailcow_status = JsonConvert.DeserializeObject<MailcowStatus>(json);
+            return mailcow_status;
         }
 
         internal async Task<SolrStatus> GetSolrStatusAsync()
@@ -175,18 +153,9 @@ namespace DisCatSharp.Mailcow.Rest
             var url = Utilities.GetApiUriFor(path, this.Mailcow.Configuration);
             var result = await this.DoRequestAsync(this.Mailcow, url, HttpMethod.Get, route);
 
-            if (result.IsSuccessStatusCode)
-            {
-                var json = await result.Content.ReadAsStringAsync();
-                var mailcow_status = JsonConvert.DeserializeObject<SolrStatus>(json);
-                return mailcow_status;
-            }
-            else
-            {
-                this.Mailcow.Logger.LogError(LoggerEvents.RestError, result.ReasonPhrase);
-                this.Mailcow.Logger.LogError(LoggerEvents.RestError, result.Content.ReadAsStringAsync().Result);
-                return null;
-            }
+            var json = await result.Content.ReadAsStringAsync();
+            var mailcow_status = JsonConvert.DeserializeObject<SolrStatus>(json);
+            return mailcow_status;
         }
 
         internal async Task<VmailStatus> GetVmailStatusAsync()
@@ -196,18 +165,9 @@ namespace DisCatSharp.Mailcow.Rest
             var url = Utilities.GetApiUriFor(path, this.Mailcow.Configuration);
             var result = await this.DoRequestAsync(this.Mailcow, url, HttpMethod.Get, route);
 
-            if (result.IsSuccessStatusCode)
-            {
-                var json = await result.Content.ReadAsStringAsync();
-                var mailcow_status = JsonConvert.DeserializeObject<VmailStatus>(json);
-                return mailcow_status;
-            }
-            else
-            {
-                this.Mailcow.Logger.LogError(LoggerEvents.RestError, result.ReasonPhrase);
-                this.Mailcow.Logger.LogError(LoggerEvents.RestError, result.Content.ReadAsStringAsync().Result);
-                return null;
-            }
+            var json = await result.Content.ReadAsStringAsync();
+            var mailcow_status = JsonConvert.DeserializeObject<VmailStatus>(json);
+            return mailcow_status;
         }
     }
 }
