@@ -28,107 +28,113 @@ namespace DisCatSharp.Mailcow.Entities
     public class MailcowDomain
     {
         [JsonProperty("max_new_mailbox_quota")]
-        public object MaxNewMailboxQuota;
+        public int NaxNewMailboxQuota { get; internal set; }
 
         [JsonProperty("def_new_mailbox_quota")]
-        public object DefNewMailboxQuota;
+        public int DefaultNewMailboxQuota { get; internal set; }
 
         [JsonProperty("quota_used_in_domain")]
-        public string QuotaUsedInDomain;
+        public string QuotaUsedInDomain { get; internal set; }
 
         [JsonProperty("bytes_total")]
-        public string BytesTotal;
+        public string TotalBytes { get; internal set; }
 
         [JsonProperty("msgs_total")]
-        public string MsgsTotal;
+        public string TotalMails { get; internal set; }
 
         [JsonProperty("mboxes_in_domain")]
-        public int MboxesInDomain;
+        public int MailboxCount { get; internal set; }
 
         [JsonProperty("mboxes_left")]
-        public int MboxesLeft;
+        public int AvailableMailboxes { get; internal set; }
 
         [JsonProperty("domain_name")]
-        public string DomainName;
+        public string DomainName { get; internal set; }
 
         [JsonProperty("description")]
-        public string Description;
+        public string Description { get; internal set; }
 
         [JsonProperty("max_num_aliases_for_domain")]
-        public int MaxNumAliasesForDomain;
+        public int MaxAliases { get; internal set; }
 
         [JsonProperty("max_num_mboxes_for_domain")]
-        public int MaxNumMboxesForDomain;
+        public int MaxMailboxes { get; internal set; }
 
         [JsonProperty("def_quota_for_mbox")]
-        public object DefQuotaForMbox;
+        public int DefaultMailboxQuota { get; internal set; }
 
         [JsonProperty("max_quota_for_mbox")]
-        public object MaxQuotaForMbox;
+        public int MaxMailboxQuota { get; internal set; }
 
         [JsonProperty("max_quota_for_domain")]
-        public object MaxQuotaForDomain;
+        public int MaxDomainQuota { get; internal set; }
 
         [JsonProperty("relayhost")]
-        public string RelayHost;
+        public string RelayHost { get; internal set; }
 
         [JsonProperty("backupmx")]
-        internal MailcowBool _backupMx;
+        internal MailcowBool InternalBackupMx { get; set; }
         [JsonIgnore]
         public bool BackupMx
-            => Utilities.GetBool(_backupMx);
+            => Utilities.GetBool(this.InternalBackupMx);
 
         [JsonProperty("backupmx_int")]
-        public int BackupmxInt;
+        public int BackupmxInt { get; set; }
 
         [JsonProperty("gal")]
-        internal MailcowBool _gal;
+        internal MailcowBool InternalGal { get; set; }
         [JsonIgnore]
         public bool Gal
-            => Utilities.GetBool(_gal);
+            => Utilities.GetBool(this.InternalGal);
 
         [JsonProperty("gal_int")]
-        public int GalInt;
+        public int GalInt { get; internal set; }
 
         [JsonProperty("rl")]
-        public bool Rl;
+        public bool Rl { get; internal set; }
 
         [JsonProperty("active")]
-        internal MailcowBool _active;
+        internal MailcowBool InternalActive { get; set;  }
         [JsonIgnore]
         public bool Active
-            => Utilities.GetBool(_active);
+            => Utilities.GetBool(this.InternalActive);
 
         [JsonProperty("active_int")]
-        public int ActiveInt;
+        public int ActiveInt { get; internal set; }
 
         [JsonProperty("relay_all_recipients")]
-        internal MailcowBool _relayAllRecipients;
+        internal MailcowBool InternalRelayAllRecipients { get; set; }
         [JsonIgnore]
         public bool RelayAllRecipients
-            => Utilities.GetBool(_relayAllRecipients);
+            => Utilities.GetBool(this.InternalRelayAllRecipients);
 
         [JsonProperty("relay_all_recipients_int")]
-        public int RelayAllRecipientsInt;
+        public int RelayAllRecipientsInt { get; internal set; }
 
         [JsonProperty("relay_unknown_only")]
-        internal MailcowBool _relayUnknownOnly;
+        internal MailcowBool InternalRelayUnknownOnly { get; set; }
         [JsonIgnore]
         public bool RelayUnknownOnly
-            => Utilities.GetBool(_relayUnknownOnly);
+            => Utilities.GetBool(this.InternalRelayUnknownOnly);
 
         [JsonProperty("relay_unknown_only_int")]
-        public int RelayUnknownOnlyInt;
+        public int RelayUnknownOnlyInt { get; internal set; }
 
         [JsonProperty("aliases_in_domain")]
-        public int AliasesInDomain;
+        public int AliasesCount { get; internal set; }
 
         [JsonProperty("aliases_left")]
-        public int AliasesLeft;
+        public int AvailableAliases { get; internal set; }
 
         [JsonProperty("domain_admins")]
-        public string DomainAdmins;
+        public string DomainAdmins { get; internal set; }
 
         internal MailcowDomain() { }
+
+        public MailcowDomain(MailcowDomain other)
+        {
+            this.DomainName = other.DomainName;
+            this.Description = other.Description;
+        }
     }
 }

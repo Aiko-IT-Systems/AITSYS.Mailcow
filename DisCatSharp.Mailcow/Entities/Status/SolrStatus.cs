@@ -28,16 +28,16 @@ namespace DisCatSharp.Mailcow.Entities
     public class SolrStatus
     {
         [JsonProperty("type")]
-        public MailcowType Type;
+        public MailcowType Type { get; internal set; }
 
         [JsonProperty("solr_enabled")]
-        public bool Enabled;
+        public bool Enabled { get; internal set; }
 
         [JsonProperty("solr_size", NullValueHandling = NullValueHandling.Ignore)]
-        public string Size;
+        public string Size { get; internal set; }
 
         [JsonProperty("solr_documents", NullValueHandling = NullValueHandling.Ignore)]
-        public int? Documents;
+        public int? Documents { get; internal set; }
 
         internal SolrStatus() { }
     }

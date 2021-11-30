@@ -27,58 +27,58 @@ namespace DisCatSharp.Mailcow.Entities
     public class MailcowStatus
     {
         [JsonProperty("rspamd-mailcow")]
-        public ContainerStatus Rspamd;
+        public ContainerStatus Rspamd { get; internal set; }
 
         [JsonProperty("ofelia-mailcow")]
-        public ContainerStatus Ofelia;
+        public ContainerStatus Ofelia { get; internal set; }
 
         [JsonProperty("netfilter-mailcow")]
-        public ContainerStatus Netfilter;
+        public ContainerStatus Netfilter { get; internal set; }
 
         [JsonProperty("acme-mailcow")]
-        public ContainerStatus Acme;
+        public ContainerStatus Acme { get; internal set; }
 
         [JsonProperty("dovecot-mailcow")]
-        public ContainerStatus Dovecot;
+        public ContainerStatus Dovecot { get; internal set; }
 
         [JsonProperty("postfix-mailcow")]
-        public ContainerStatus Postfix;
+        public ContainerStatus Postfix { get; internal set; }
 
         [JsonProperty("nginx-mailcow")]
-        public ContainerStatus Nginx;
+        public ContainerStatus Nginx { get; internal set; }
 
         [JsonProperty("mysql-mailcow")]
-        public ContainerStatus Mysql;
+        public ContainerStatus Mysql { get; internal set; }
 
         [JsonProperty("php-fpm-mailcow")]
-        public ContainerStatus PhpFpm;
+        public ContainerStatus PhpFpm { get; internal set; }
 
         [JsonProperty("clamd-mailcow")]
-        public ContainerStatus Clamd;
+        public ContainerStatus Clamd { get; internal set; }
 
         [JsonProperty("watchdog-mailcow")]
-        public ContainerStatus Watchdog;
+        public ContainerStatus Watchdog { get; internal set; }
 
         [JsonProperty("sogo-mailcow")]
-        public ContainerStatus Sogo;
+        public ContainerStatus Sogo { get; internal set; }
 
         [JsonProperty("solr-mailcow")]
-        public ContainerStatus Solr;
+        public ContainerStatus Solr { get; internal set; }
 
         [JsonProperty("unbound-mailcow")]
-        public ContainerStatus Unbound;
+        public ContainerStatus Unbound { get; internal set; }
 
         [JsonProperty("memcached-mailcow")]
-        public ContainerStatus Memcached;
+        public ContainerStatus Memcached { get; internal set; }
 
         [JsonProperty("olefy-mailcow")]
-        public ContainerStatus Olefy;
+        public ContainerStatus Olefy { get; internal set; }
 
         [JsonProperty("redis-mailcow")]
-        public ContainerStatus Redis;
+        public ContainerStatus Redis { get; internal set; }
 
         [JsonProperty("dockerapi-mailcow")]
-        public ContainerStatus Dockerapi;
+        public ContainerStatus Dockerapi { get; internal set; }
 
         internal MailcowStatus() { }
     }
