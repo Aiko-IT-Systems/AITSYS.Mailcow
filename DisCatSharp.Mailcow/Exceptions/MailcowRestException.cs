@@ -24,7 +24,6 @@ using System;
 using System.Net;
 using System.Net.Http;
 using DisCatSharp.Mailcow.Entities;
-using DisCatSharp.Mailcow.Enums;
 using Newtonsoft.Json;
 
 namespace DisCatSharp.Mailcow.Exceptions

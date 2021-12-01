@@ -20,6 +20,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+using System.Collections.Generic;
 using DisCatSharp.Mailcow.Enums;
 using Newtonsoft.Json;
 
@@ -73,19 +74,13 @@ namespace DisCatSharp.Mailcow.Entities
         public string RelayHost { get; internal set; }
 
         [JsonProperty("backupmx")]
-        internal MailcowBool InternalBackupMx { get; set; }
-        [JsonIgnore]
-        public bool BackupMx
-            => Utilities.GetBool(this.InternalBackupMx);
+        public bool BackupMx { get; internal set; }
 
         [JsonProperty("backupmx_int")]
         public int BackupmxInt { get; set; }
 
         [JsonProperty("gal")]
-        internal MailcowBool InternalGal { get; set; }
-        [JsonIgnore]
-        public bool Gal
-            => Utilities.GetBool(this.InternalGal);
+        public bool Gal { get; internal set; }
 
         [JsonProperty("gal_int")]
         public int GalInt { get; internal set; }
@@ -94,28 +89,19 @@ namespace DisCatSharp.Mailcow.Entities
         public bool Rl { get; internal set; }
 
         [JsonProperty("active")]
-        internal MailcowBool InternalActive { get; set;  }
-        [JsonIgnore]
-        public bool Active
-            => Utilities.GetBool(this.InternalActive);
+        public bool Active { get; internal set;  }
 
         [JsonProperty("active_int")]
         public int ActiveInt { get; internal set; }
 
         [JsonProperty("relay_all_recipients")]
-        internal MailcowBool InternalRelayAllRecipients { get; set; }
-        [JsonIgnore]
-        public bool RelayAllRecipients
-            => Utilities.GetBool(this.InternalRelayAllRecipients);
+        public bool RelayAllRecipients { get; internal set; }
 
         [JsonProperty("relay_all_recipients_int")]
         public int RelayAllRecipientsInt { get; internal set; }
 
         [JsonProperty("relay_unknown_only")]
-        internal MailcowBool InternalRelayUnknownOnly { get; set; }
-        [JsonIgnore]
-        public bool RelayUnknownOnly
-            => Utilities.GetBool(this.InternalRelayUnknownOnly);
+        public bool RelayUnknownOnly { get; internal set; }
 
         [JsonProperty("relay_unknown_only_int")]
         public int RelayUnknownOnlyInt { get; internal set; }
@@ -127,7 +113,7 @@ namespace DisCatSharp.Mailcow.Entities
         public int AvailableAliases { get; internal set; }
 
         [JsonProperty("domain_admins")]
-        public string DomainAdmins { get; internal set; }
+        public List<string> DomainAdmins { get; internal set; }
 
         internal MailcowDomain() { }
 

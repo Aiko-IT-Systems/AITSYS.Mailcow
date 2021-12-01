@@ -28,7 +28,7 @@ namespace DisCatSharp.Mailcow.Rest
     /// </summary>
     public static class Endpoints
     {
-        public const string API_ENDPOINT = "/api/v1";
+        public const string API_ENDPOINT = "/api";
 
         #region Methods
         public const string GET = "/get";

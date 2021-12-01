@@ -44,6 +44,7 @@ namespace DisCatSharp.Mailcow.Enums
     {
         Info,
         Success,
+        Warning,
         Danger,
         Error
     }
