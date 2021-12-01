@@ -78,7 +78,7 @@ namespace DisCatSharp.Mailcow
                 this._apiVersion = value;
             }
         }
-        private string _apiVersion = "v1";
+        private string _apiVersion = "v2";
 
         /// <summary>
         /// <para>Sets the minimum logging level for messages.</para>
