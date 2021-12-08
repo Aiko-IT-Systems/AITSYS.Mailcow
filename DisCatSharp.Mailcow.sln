@@ -12,6 +12,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution", "Solution", "{45
 		Targets\DisCatSharp.Mailcow.targets = Targets\DisCatSharp.Mailcow.targets
 		Targets\NuGet.targets = Targets\NuGet.targets
 		Targets\Package.targets = Targets\Package.targets
+		rebuild-docs.ps1 = rebuild-docs.ps1
+		s_oneclick-rebuild-docs.ps1 = s_oneclick-rebuild-docs.ps1
 		Targets\Version.targets = Targets\Version.targets
 	EndProjectSection
 EndProject

@@ -20,25 +20,50 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-using DisCatSharp.Mailcow.Enums;
+using System;
 using Newtonsoft.Json;
 
 namespace DisCatSharp.Mailcow.Entities
 {
-    public class SolrStatus
+    public class MailcowMailboxAttributes
     {
-        [JsonProperty("type")]
-        public MailcowType Type { get; internal set; }
+        [JsonProperty("force_pw_update")]
+        public bool ForcePwUpdate;
 
-        [JsonProperty("solr_enabled")]
-        public bool Enabled { get; internal set; }
+        [JsonProperty("tls_enforce_in")]
+        public bool TlsEnforceIn;
 
-        [JsonProperty("solr_size", NullValueHandling = NullValueHandling.Ignore)]
-        public string Size { get; internal set; }
+        [JsonProperty("tls_enforce_out")]
+        public bool TlsEnforceOut;
 
-        [JsonProperty("solr_documents", NullValueHandling = NullValueHandling.Ignore)]
-        public int? Documents { get; internal set; }
+        [JsonProperty("sogo_access")]
+        public bool SogoAccess;
 
-        internal SolrStatus() { }
+        [JsonProperty("imap_access")]
+        public bool ImapAccess;
+
+        [JsonProperty("pop3_access")]
+        public bool Pop3Access;
+
+        [JsonProperty("smtp_access")]
+        public bool SmtpAccess;
+
+        [JsonProperty("relayhost")]
+        public bool Relayhost;
+
+        [JsonProperty("passwd_update")]
+        public DateTime? PasswdUpdate;
+
+        [JsonProperty("mailbox_format")]
+        public string MailboxFormat;
+
+        [JsonProperty("quarantine_notification")]
+        public string QuarantineNotification;
+
+        [JsonProperty("quarantine_category")]
+        public string QuarantineCategory;
+
+        [JsonProperty("sieve_access")]
+        public bool SieveAccess;
     }
 }

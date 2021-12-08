@@ -20,25 +20,23 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-using DisCatSharp.Mailcow.Enums;
-using Newtonsoft.Json;
-
-namespace DisCatSharp.Mailcow.Entities
+namespace DisCatSharp.Mailcow.Enums
 {
-    public class SolrStatus
+    public enum MailboxState : int
     {
-        [JsonProperty("type")]
-        public MailcowType Type { get; internal set; }
+        /// <summary>
+        /// Indicates that the mailbox is disabled.
+        /// </summary>
+        Disabled = 0,
 
-        [JsonProperty("solr_enabled")]
-        public bool Enabled { get; internal set; }
+        /// <summary>
+        /// Indicates that the mailbox is active.
+        /// </summary>
+        Active = 1,
 
-        [JsonProperty("solr_size", NullValueHandling = NullValueHandling.Ignore)]
-        public string Size { get; internal set; }
-
-        [JsonProperty("solr_documents", NullValueHandling = NullValueHandling.Ignore)]
-        public int? Documents { get; internal set; }
-
-        internal SolrStatus() { }
+        /// <summary>
+        /// Indicates that the mailbox is active but the login disabled.
+        /// </summary>
+        LoginDisabled = 2
     }
 }

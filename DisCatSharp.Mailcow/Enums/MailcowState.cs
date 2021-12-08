@@ -20,25 +20,19 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-using DisCatSharp.Mailcow.Enums;
+using System;
+using Newtonsoft.Json.Converters;
 using Newtonsoft.Json;
 
-namespace DisCatSharp.Mailcow.Entities
+namespace DisCatSharp.Mailcow.Enums
 {
-    public class SolrStatus
+    [Serializable]
+    [JsonConverter(typeof(StringEnumConverter))]
+    public enum MailcowState
     {
-        [JsonProperty("type")]
-        public MailcowType Type { get; internal set; }
-
-        [JsonProperty("solr_enabled")]
-        public bool Enabled { get; internal set; }
-
-        [JsonProperty("solr_size", NullValueHandling = NullValueHandling.Ignore)]
-        public string Size { get; internal set; }
-
-        [JsonProperty("solr_documents", NullValueHandling = NullValueHandling.Ignore)]
-        public int? Documents { get; internal set; }
-
-        internal SolrStatus() { }
+        Running,
+        Exited,
+        Stopped,
+        Crashed
     }
 }

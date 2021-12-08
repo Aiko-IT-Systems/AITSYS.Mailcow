@@ -21,6 +21,7 @@
 // SOFTWARE.
 
 using System;
+using DisCatSharp.Mailcow.Enums;
 using Newtonsoft.Json;
 
 namespace DisCatSharp.Mailcow.Entities
@@ -28,19 +29,19 @@ namespace DisCatSharp.Mailcow.Entities
     public class ContainerStatus
     {
         [JsonProperty("type")]
-        public string Type;
+        public MailcowType Type { get; internal set; }
 
         [JsonProperty("container")]
-        public string ContainerName;
+        public string ContainerName { get; internal set; }
 
         [JsonProperty("state")]
-        public string State;
+        public MailcowState State { get; internal set; }
 
         [JsonProperty("started_at")]
-        public DateTimeOffset StartedAt;
+        public DateTimeOffset StartedAt { get; internal set; }
 
         [JsonProperty("image")]
-        public string ImageName;
+        public string ImageName { get; internal set; }
 
         internal ContainerStatus() { }
     }

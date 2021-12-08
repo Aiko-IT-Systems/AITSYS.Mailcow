@@ -56,12 +56,29 @@ namespace DisCatSharp.Mailcow
             set
             {
                 if (string.IsNullOrWhiteSpace(value))
-                    throw new ArgumentNullException(nameof(value), "Token cannot be null, empty, or all whitespace.");
+                    throw new ArgumentNullException(nameof(value), "Host cannot be null, empty, or all whitespace.");
 
                 this._host = value;
             }
         }
         private string _host = "";
+
+        /// <summary>
+        /// Sets the host url used to use the api.
+        /// Example: https://mail.example.com.
+        /// </summary>
+        public string ApiVersion
+        {
+            internal get => this._apiVersion;
+            set
+            {
+                if (string.IsNullOrWhiteSpace(value))
+                    throw new ArgumentNullException(nameof(value), "API version cannot be null, empty, or all whitespace.");
+
+                this._apiVersion = value;
+            }
+        }
+        private string _apiVersion = "v2";
 
         /// <summary>
         /// <para>Sets the minimum logging level for messages.</para>
@@ -99,6 +116,7 @@ namespace DisCatSharp.Mailcow
             this.MinimumLogLevel = other.MinimumLogLevel;
             this.LogTimestampFormat = other.LogTimestampFormat;
             this.LoggerFactory = other.LoggerFactory;
+            this.ApiVersion = other.ApiVersion;
         }
     }
 }

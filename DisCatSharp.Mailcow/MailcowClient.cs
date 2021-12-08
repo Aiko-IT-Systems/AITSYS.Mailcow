@@ -92,18 +92,52 @@ namespace DisCatSharp.Mailcow
 
         #region Methods
 
+        /// <summary>
+        /// Gets a specific mailcow domain.
+        /// </summary>
+        /// <param name="domain">The domain to get.</param>
+        /// <returns>The requested domain</returns>
         public Task<MailcowDomain> GetDomainAsync(string domain)
             => this.ApiClient.GetDomainAsync(domain);
 
+        /// <summary>
+        /// Gets all domains from mailcow.
+        /// </summary>
+        /// <returns>A collection of domains</returns>
         public Task<IReadOnlyCollection<MailcowDomain>> GetAllDomainsAsync()
             => this.ApiClient.GetAllDomainsAsync();
 
+        /// <summary>
+        /// Gets a specific mailbox from mailcow.
+        /// </summary>
+        /// <param name="mailbox">The mailbox to get.</param>
+        /// <returns>The requested mailbox</returns>
+        public Task<MailcowMailbox> GetMailboxAsync(string mailbox)
+            => this.ApiClient.GetMailboxAsync(mailbox);
+
+        /// <summary>
+        /// Get all mailboxes from mailcow.
+        /// </summary>
+        /// <param name="reduced">Whether to get reduced infos.</param>
+        /// <returns>A collection of all mailboxes.</returns>
+        public Task<IReadOnlyCollection<MailcowMailbox>> GetAllMailboxesAsync(bool reduced = false)
+            => this.ApiClient.GetAllMailboxesAsync(reduced);
+
+        /// <summary>
+        /// Gets the docker container status.
+        /// </summary>
         public Task<MailcowStatus> GetContainerStatusAsync()
             => this.ApiClient.GetMailcowStatusAsync();
 
+        /// <summary>
+        /// Gets the solr status.
+        /// </summary>
         public Task<SolrStatus> GetSolrStatusAsync()
             => this.ApiClient.GetSolrStatusAsync();
 
+        /// <summary>
+        /// Gets the vmail status.
+        /// </summary>
         public Task<VmailStatus> GetVmailStatusAsync()
             => this.ApiClient.GetVmailStatusAsync();
 

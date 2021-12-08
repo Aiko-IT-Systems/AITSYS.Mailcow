@@ -20,18 +20,24 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-namespace DisCatSharp.Mailcow.Enums
-{
-    public enum MailcowBool : int
-    {
-        /// <summary>
-        /// This value is false.
-        /// </summary>
-        False = 0,
+using DisCatSharp.Mailcow.Enums;
+using Newtonsoft.Json;
 
-        /// <summary>
-        /// This value is true.
-        /// </summary>
-        True = 1
+namespace DisCatSharp.Mailcow.Entities
+{
+    public class MailcowRestResponse
+    {
+        [JsonProperty("type")]
+        public MailcowType MessageType { get; internal set; }
+
+        [JsonProperty("msg", NullValueHandling = NullValueHandling.Ignore)]
+        public string Message { get; internal set; }
+
+        [JsonConstructor]
+        internal MailcowRestResponse(MailcowType type, string message)
+        {
+            this.MessageType = type;
+            this.Message = message;
+        }
     }
 }

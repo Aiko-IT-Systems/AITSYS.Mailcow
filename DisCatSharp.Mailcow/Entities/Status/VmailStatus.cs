@@ -21,6 +21,7 @@
 // SOFTWARE.
 
 using System;
+using DisCatSharp.Mailcow.Enums;
 using Newtonsoft.Json;
 
 namespace DisCatSharp.Mailcow.Entities
@@ -28,19 +29,19 @@ namespace DisCatSharp.Mailcow.Entities
     public class VmailStatus
     {
         [JsonProperty("type")]
-        public string Type;
+        public MailcowType Type { get; internal set; }
 
         [JsonProperty("disk")]
-        public string Disk;
+        public string Disk { get; internal set; }
 
         [JsonProperty("used")]
-        public string Used;
+        public string Used { get; internal set; }
 
         [JsonProperty("total")]
-        public string Total;
+        public string Total { get; internal set; }
 
         [JsonProperty("used_percent")]
-        public string UsedPercent;
+        public string UsedPercent { get; internal set; }
 
         internal VmailStatus() { }
     }
