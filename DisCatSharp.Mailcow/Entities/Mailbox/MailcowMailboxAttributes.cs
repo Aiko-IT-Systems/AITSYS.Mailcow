@@ -65,5 +65,7 @@ namespace DisCatSharp.Mailcow.Entities
 
         [JsonProperty("sieve_access")]
         public bool SieveAccess;
+
+        public MailcowMailboxAttributes() { }
     }
 }

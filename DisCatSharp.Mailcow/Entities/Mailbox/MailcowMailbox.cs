@@ -53,7 +53,7 @@ namespace DisCatSharp.Mailcow.Entities
         public string LocalPart;
 
         [JsonProperty("quota")]
-        public int Quota;
+        public ulong Quota;
 
         [JsonProperty("messages")]
         public int Messages;
@@ -71,13 +71,22 @@ namespace DisCatSharp.Mailcow.Entities
         public string PercentClass;
 
         [JsonProperty("last_imap_login")]
-        public DateTimeOffset? LastImapLogin;
+        internal long? _lastImapLoginRaw;
+        [JsonIgnore]
+        public DateTimeOffset? LastImapLogin
+            => this._lastImapLoginRaw.HasValue ? DateTimeOffset.FromUnixTimeSeconds(_lastImapLoginRaw.Value) : null;
 
         [JsonProperty("last_smtp_login")]
-        public DateTimeOffset? LastSmtpLogin;
+        internal long? _lastSmtpLoginRaw;
+        [JsonIgnore]
+        public DateTimeOffset? LastSmtpLogin
+            => this._lastSmtpLoginRaw.HasValue ? DateTimeOffset.FromUnixTimeSeconds(_lastSmtpLoginRaw.Value) : null;
 
         [JsonProperty("last_pop3_login")]
-        public DateTimeOffset? LastPop3Login;
+        internal long? _lastPop3LoginRaw;
+        [JsonIgnore]
+        public DateTimeOffset? LastPop3Login
+            => this._lastPop3LoginRaw.HasValue ? DateTimeOffset.FromUnixTimeSeconds(_lastPop3LoginRaw.Value) : null;
 
         [JsonProperty("max_new_quota", NullValueHandling = NullValueHandling.Ignore)]
         public long? MaxNewQuota;
@@ -96,5 +105,7 @@ namespace DisCatSharp.Mailcow.Entities
 
         [JsonProperty("is_relayed", NullValueHandling = NullValueHandling.Ignore)]
         public bool? IsRelayed;
+
+        public MailcowMailbox() { }
     }
 }

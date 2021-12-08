@@ -29,10 +29,10 @@ namespace DisCatSharp.Mailcow.Entities
     public class MailcowDomain
     {
         [JsonProperty("max_new_mailbox_quota")]
-        public int NaxNewMailboxQuota { get; internal set; }
+        public ulong NaxNewMailboxQuota { get; internal set; }
 
         [JsonProperty("def_new_mailbox_quota")]
-        public int DefaultNewMailboxQuota { get; internal set; }
+        public ulong DefaultNewMailboxQuota { get; internal set; }
 
         [JsonProperty("quota_used_in_domain")]
         public string QuotaUsedInDomain { get; internal set; }
@@ -62,13 +62,13 @@ namespace DisCatSharp.Mailcow.Entities
         public int MaxMailboxes { get; internal set; }
 
         [JsonProperty("def_quota_for_mbox")]
-        public int DefaultMailboxQuota { get; internal set; }
+        public ulong DefaultMailboxQuota { get; internal set; }
 
         [JsonProperty("max_quota_for_mbox")]
-        public int MaxMailboxQuota { get; internal set; }
+        public ulong MaxMailboxQuota { get; internal set; }
 
         [JsonProperty("max_quota_for_domain")]
-        public int MaxDomainQuota { get; internal set; }
+        public ulong MaxDomainQuota { get; internal set; }
 
         [JsonProperty("relayhost")]
         public string RelayHost { get; internal set; }
@@ -115,12 +115,6 @@ namespace DisCatSharp.Mailcow.Entities
         [JsonProperty("domain_admins")]
         public List<string> DomainAdmins { get; internal set; }
 
-        internal MailcowDomain() { }
-
-        public MailcowDomain(MailcowDomain other)
-        {
-            this.DomainName = other.DomainName;
-            this.Description = other.Description;
-        }
+        public MailcowDomain() { }
     }
 }

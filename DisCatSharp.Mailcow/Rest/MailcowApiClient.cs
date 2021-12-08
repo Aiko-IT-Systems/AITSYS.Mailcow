@@ -28,6 +28,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using DisCatSharp.Mailcow.Entities;
 using DisCatSharp.Mailcow.Exceptions;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 
 namespace DisCatSharp.Mailcow.Rest
@@ -80,16 +81,15 @@ namespace DisCatSharp.Mailcow.Rest
         /// <param name="client">The client.</param>
         /// <param name="url">The url.</param>
         /// <param name="method">The method.</param>
-        /// <param name="route">The route.</param>
         /// <param name="headers">The headers.</param>
         /// <param name="payload">The payload.</param>
         /// <returns>A Task.</returns>
-        internal async Task<HttpResponseMessage> DoRequestAsync(MailcowClient client, Uri url, HttpMethod method, string route, IReadOnlyDictionary<string, string> headers = null, string payload = null)
+        internal async Task<HttpResponseMessage> DoRequestAsync(MailcowClient client, Uri url, HttpMethod method, IReadOnlyDictionary<string, string> headers = null, string payload = null)
         {
-            HttpRequestMessage request = new(method, $"{url}{route}");
+            HttpRequestMessage request = new(method, $"{url}");
             request.Headers.Add(API_HEADER, client.Configuration.Token);
             request.Headers.Add("User-Agent", Utilities.VersionHeader);
-            request.Headers.Add("Accept", "application/json");
+            request.Headers.Add("Accept", "*/*");
             if (headers != null)
             {
                 foreach (var header in headers)
@@ -115,7 +115,7 @@ namespace DisCatSharp.Mailcow.Rest
             var route = $"{Endpoints.GET}{Endpoints.DOMAIN}/:domain";
             Bucket.GetBucket(route, new { domain }, out var path);
             var url = Utilities.GetApiUriFor(path, this.Mailcow.Configuration);
-            var result = await this.DoRequestAsync(this.Mailcow, url, HttpMethod.Get, route);
+            var result = await this.DoRequestAsync(this.Mailcow, url, HttpMethod.Get);
 
             var domain_json = await result.Content.ReadAsStringAsync();
             return JsonConvert.DeserializeObject<MailcowDomain>(domain_json);
@@ -126,7 +126,7 @@ namespace DisCatSharp.Mailcow.Rest
             var route = $"{Endpoints.GET}{Endpoints.DOMAIN}{Endpoints.ALL}";
             Bucket.GetBucket(route, new { }, out var path);
             var url = Utilities.GetApiUriFor(path, this.Mailcow.Configuration);
-            var result = await this.DoRequestAsync(this.Mailcow, url, HttpMethod.Get, route);
+            var result = await this.DoRequestAsync(this.Mailcow, url, HttpMethod.Get);
 
             var domain_json = await result.Content.ReadAsStringAsync();
             var domains = JsonConvert.DeserializeObject<List<MailcowDomain>>(domain_json);
@@ -138,7 +138,7 @@ namespace DisCatSharp.Mailcow.Rest
             var route = $"{Endpoints.GET}{Endpoints.DOMAIN}/:mailbox";
             Bucket.GetBucket(route, new { mailbox }, out var path);
             var url = Utilities.GetApiUriFor(path, this.Mailcow.Configuration);
-            var result = await this.DoRequestAsync(this.Mailcow, url, HttpMethod.Get, route);
+            var result = await this.DoRequestAsync(this.Mailcow, url, HttpMethod.Get);
 
             var mailbox_json = await result.Content.ReadAsStringAsync();
             return JsonConvert.DeserializeObject<MailcowMailbox>(mailbox_json);
@@ -146,10 +146,10 @@ namespace DisCatSharp.Mailcow.Rest
 
         internal async Task<IReadOnlyCollection<MailcowMailbox>> GetAllMailboxesAsync(bool reduced)
         {
-            var route = $"{Endpoints.GET}{Endpoints.MAILBOX}{(reduced ?  Endpoints.REDUCED : Endpoints.ALL)}";
+            var route = reduced ? $"{Endpoints.GET}{Endpoints.MAILBOX}{Endpoints.REDUCED}" : $"{Endpoints.GET}{Endpoints.MAILBOX}{Endpoints.ALL}";
             Bucket.GetBucket(route, new { }, out var path);
             var url = Utilities.GetApiUriFor(path, this.Mailcow.Configuration);
-            var result = await this.DoRequestAsync(this.Mailcow, url, HttpMethod.Get, route);
+            var result = await this.DoRequestAsync(this.Mailcow, url, HttpMethod.Get);
 
             var mailbox_json = await result.Content.ReadAsStringAsync();
             var mailboxes = JsonConvert.DeserializeObject<List<MailcowMailbox>>(mailbox_json);
@@ -161,7 +161,7 @@ namespace DisCatSharp.Mailcow.Rest
             var route = $"{Endpoints.GET}{Endpoints.STATUS}{Endpoints.CONTAINERS}";
             Bucket.GetBucket(route, new { }, out var path);
             var url = Utilities.GetApiUriFor(path, this.Mailcow.Configuration);
-            var result = await this.DoRequestAsync(this.Mailcow, url, HttpMethod.Get, route);
+            var result = await this.DoRequestAsync(this.Mailcow, url, HttpMethod.Get);
 
             var json = await result.Content.ReadAsStringAsync();
             var mailcow_status = JsonConvert.DeserializeObject<MailcowStatus>(json);
@@ -173,7 +173,7 @@ namespace DisCatSharp.Mailcow.Rest
             var route = $"{Endpoints.GET}{Endpoints.STATUS}{Endpoints.SOLR}";
             Bucket.GetBucket(route, new { }, out var path);
             var url = Utilities.GetApiUriFor(path, this.Mailcow.Configuration);
-            var result = await this.DoRequestAsync(this.Mailcow, url, HttpMethod.Get, route);
+            var result = await this.DoRequestAsync(this.Mailcow, url, HttpMethod.Get);
 
             var json = await result.Content.ReadAsStringAsync();
             var mailcow_status = JsonConvert.DeserializeObject<SolrStatus>(json);
@@ -185,7 +185,7 @@ namespace DisCatSharp.Mailcow.Rest
             var route = $"{Endpoints.GET}{Endpoints.STATUS}{Endpoints.VMAIL}";
             Bucket.GetBucket(route, new { }, out var path);
             var url = Utilities.GetApiUriFor(path, this.Mailcow.Configuration);
-            var result = await this.DoRequestAsync(this.Mailcow, url, HttpMethod.Get, route);
+            var result = await this.DoRequestAsync(this.Mailcow, url, HttpMethod.Get);
 
             var json = await result.Content.ReadAsStringAsync();
             var mailcow_status = JsonConvert.DeserializeObject<VmailStatus>(json);

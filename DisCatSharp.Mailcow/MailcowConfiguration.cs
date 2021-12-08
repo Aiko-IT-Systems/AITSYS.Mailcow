@@ -64,8 +64,8 @@ namespace DisCatSharp.Mailcow
         private string _host = "";
 
         /// <summary>
-        /// Sets the host url used to use the api.
-        /// Example: https://mail.example.com.
+        /// Sets the api version to use.
+        /// Example: v2.
         /// </summary>
         public string ApiVersion
         {
