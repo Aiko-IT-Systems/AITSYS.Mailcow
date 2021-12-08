@@ -107,16 +107,6 @@ namespace DisCatSharp.Mailcow
         internal static Dictionary<string, string> GetBaseHeaders()
             => new();
 
-        internal static bool GetBool(MailcowBool mailcowBool)
-        {
-            return mailcowBool switch
-            {
-                MailcowBool.True => true,
-                MailcowBool.False => false,
-                _ => false,
-            };
-        }
-
         /// <summary>
         /// Helper method to create a <see cref="System.DateTimeOffset"/> from Unix time seconds for targets that do not support this natively.
         /// </summary>

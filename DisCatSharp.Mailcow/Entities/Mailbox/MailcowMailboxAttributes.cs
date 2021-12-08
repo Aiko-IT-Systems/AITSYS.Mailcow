@@ -20,18 +20,50 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-namespace DisCatSharp.Mailcow.Enums
-{
-    public enum MailcowBool : int
-    {
-        /// <summary>
-        /// This value is false.
-        /// </summary>
-        False = 0,
+using System;
+using Newtonsoft.Json;
 
-        /// <summary>
-        /// This value is true.
-        /// </summary>
-        True = 1
+namespace DisCatSharp.Mailcow.Entities
+{
+    public class MailcowMailboxAttributes
+    {
+        [JsonProperty("force_pw_update")]
+        public bool ForcePwUpdate;
+
+        [JsonProperty("tls_enforce_in")]
+        public bool TlsEnforceIn;
+
+        [JsonProperty("tls_enforce_out")]
+        public bool TlsEnforceOut;
+
+        [JsonProperty("sogo_access")]
+        public bool SogoAccess;
+
+        [JsonProperty("imap_access")]
+        public bool ImapAccess;
+
+        [JsonProperty("pop3_access")]
+        public bool Pop3Access;
+
+        [JsonProperty("smtp_access")]
+        public bool SmtpAccess;
+
+        [JsonProperty("relayhost")]
+        public bool Relayhost;
+
+        [JsonProperty("passwd_update")]
+        public DateTime? PasswdUpdate;
+
+        [JsonProperty("mailbox_format")]
+        public string MailboxFormat;
+
+        [JsonProperty("quarantine_notification")]
+        public string QuarantineNotification;
+
+        [JsonProperty("quarantine_category")]
+        public string QuarantineCategory;
+
+        [JsonProperty("sieve_access")]
+        public bool SieveAccess;
     }
 }

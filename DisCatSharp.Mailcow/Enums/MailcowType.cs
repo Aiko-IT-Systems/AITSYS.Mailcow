@@ -28,18 +28,6 @@ namespace DisCatSharp.Mailcow.Enums
 {
     [Serializable]
     [JsonConverter(typeof(StringEnumConverter))]
-    internal class CustomMailcowType : Enumeration
-    {
-        internal static CustomMailcowType Information = new(0, "info");
-        internal static CustomMailcowType Success = new(1, "success");
-        internal static CustomMailcowType Danger = new(2, "danger");
-        internal static CustomMailcowType Error = new(3, "error");
-
-        internal CustomMailcowType(int id, string name) : base(id, name) { }
-    }
-
-    [Serializable]
-    [JsonConverter(typeof(StringEnumConverter))]
     public enum MailcowType
     {
         Info,

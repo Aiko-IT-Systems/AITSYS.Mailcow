@@ -133,6 +133,29 @@ namespace DisCatSharp.Mailcow.Rest
             return domains.AsReadOnly();
         }
 
+        internal async Task<MailcowMailbox> GetMailboxAsync(string mailbox)
+        {
+            var route = $"{Endpoints.GET}{Endpoints.DOMAIN}/:mailbox";
+            Bucket.GetBucket(route, new { mailbox }, out var path);
+            var url = Utilities.GetApiUriFor(path, this.Mailcow.Configuration);
+            var result = await this.DoRequestAsync(this.Mailcow, url, HttpMethod.Get, route);
+
+            var mailbox_json = await result.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<MailcowMailbox>(mailbox_json);
+        }
+
+        internal async Task<IReadOnlyCollection<MailcowMailbox>> GetAllMailboxesAsync(bool reduced)
+        {
+            var route = $"{Endpoints.GET}{Endpoints.MAILBOX}{(reduced ?  Endpoints.REDUCED : Endpoints.ALL)}";
+            Bucket.GetBucket(route, new { }, out var path);
+            var url = Utilities.GetApiUriFor(path, this.Mailcow.Configuration);
+            var result = await this.DoRequestAsync(this.Mailcow, url, HttpMethod.Get, route);
+
+            var mailbox_json = await result.Content.ReadAsStringAsync();
+            var mailboxes = JsonConvert.DeserializeObject<List<MailcowMailbox>>(mailbox_json);
+            return mailboxes.AsReadOnly();
+        }
+
         internal async Task<MailcowStatus> GetMailcowStatusAsync()
         {
             var route = $"{Endpoints.GET}{Endpoints.STATUS}{Endpoints.CONTAINERS}";

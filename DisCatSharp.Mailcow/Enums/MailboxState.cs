@@ -20,19 +20,23 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-using System;
-using Newtonsoft.Json.Converters;
-using Newtonsoft.Json;
-
 namespace DisCatSharp.Mailcow.Enums
 {
-    [Serializable]
-    [JsonConverter(typeof(StringEnumConverter))]
-    public enum MailcowState
+    public enum MailboxState : int
     {
-        Running,
-        Exited,
-        Stopped,
-        Crashed
+        /// <summary>
+        /// Indicates that the mailbox is disabled.
+        /// </summary>
+        Disabled = 0,
+
+        /// <summary>
+        /// Indicates that the mailbox is active.
+        /// </summary>
+        Active = 1,
+
+        /// <summary>
+        /// Indicates that the mailbox is active but the login disabled.
+        /// </summary>
+        LoginDisabled = 2
     }
 }

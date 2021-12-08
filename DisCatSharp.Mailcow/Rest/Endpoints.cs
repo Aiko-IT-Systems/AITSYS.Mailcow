@@ -42,6 +42,8 @@ namespace DisCatSharp.Mailcow.Rest
 
         public const string DOMAIN = "/domain";
 
+        public const string MAILBOX = "/mailbox";
+
         #region Status
         public const string STATUS = "/status";
 
@@ -53,5 +55,6 @@ namespace DisCatSharp.Mailcow.Rest
         #endregion
 
         public const string ALL = "/all";
+        public const string REDUCED = "/reduced";
     }
 }
