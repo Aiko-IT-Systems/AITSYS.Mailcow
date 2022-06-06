@@ -7,8 +7,8 @@ You can install the library from following source:
 
 The latest release is always available on [NuGet](https://www.nuget.org/packages/AITSYS.Mailcow/).
 
-## Documentation
-The documentation for the latest version is available at [mc.docs.aitsys.dev](https://mc.docs.aitsys.dev).
+<!--## Documentation
+The documentation for the latest version is available at [mc.docs.aitsys.dev](https://mc.docs.aitsys.dev).-->
 
 ## Bugs or Feature requests?
 All requests are tracked at [aitsys.dev](https://aitsys.dev).
