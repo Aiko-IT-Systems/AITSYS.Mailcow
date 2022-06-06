@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Authors>AITSYS, aiko, AITSYS Contributors</Authors>
+    <Company>AITSYS</Company>
+    <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
+    <PackageProjectUrl>https://github.com/Aiko-IT-Systems/AITSYS.Mailcow</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/Aiko-IT-Systems/AITSYS.Mailcow</RepositoryUrl>
+    <RepositoryType>Git</RepositoryType>
+    <PackageIcon>logo_black.png</PackageIcon>
+    <PackageLicenseExpression />
+    <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
+    <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\LICENSE.md">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\AITSYS.Mailcow.Logos\logo_black.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
+</Project>

@@ -1,1 +1,1 @@
-.\rebuild-docs.ps1 -DocsPath ".\DisCatSharp.Mailcow.Docs" -OutputPath ".\" -PackageName "dcs-mailcow-docs"
+.\rebuild-docs.ps1 -DocsPath ".\AITSYS.Mailcow.Docs" -OutputPath "..\AITSYS.Mailcow.Docs\" -PackageName "aitsys-mailcow-docs"

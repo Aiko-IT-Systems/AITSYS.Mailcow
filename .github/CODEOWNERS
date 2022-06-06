@@ -1,2 +1,13 @@
-* @Aiko-IT-Systems/aiko-it-systems
-* @Aiko-IT-Systems/discatsharp
+* @Aiko-IT-Systems/aitsys-developer
+
+/AITSYS.Mailcow.Docs/dcs/ @Lulalaby
+/AITSYS.Mailcow.Docs/docfx.json @Lulalaby
+
+*.yml @Lulalaby
+*.ps1 @Lulalaby
+
+*.targets @Aiko-IT-Systems/aitsys-leader
+LICENSE.md @Aiko-IT-Systems/aitsys-leader
+README.md @Aiko-IT-Systems/aitsys-leader
+
+/.github/ @Lulalaby @NyuwBot @Aiko-IT-Systems/aitsys-leader

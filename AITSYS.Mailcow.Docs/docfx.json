@@ -1,0 +1,99 @@
+{
+  "metadata": [
+    {
+      "src": [
+        {
+          "src": "../",
+          "files": [
+            "**.csproj"
+          ],
+          "exclude": [
+            "**/obj/**",
+            "**/bin/**",
+            "_site/**"
+          ]
+        }
+      ],
+      "dest": "api",
+      "filter": "filter_config.yml"
+    }
+  ],
+  "build": {
+	"content": [
+      {
+        "files": [
+          "api/**.yml",
+          "api/**.md"
+        ]
+      },
+      {
+        "files": [
+			"**.md",
+			"toc.yml",
+			"faq/**.yml",
+			"faq/**.md",
+			"articles/**.yml",
+			"articles/**.md"
+        ],
+        "exclude": [
+            "**/bin/**",
+            "**/obj/**",
+            "_site/**",
+			"dcs/**"
+        ]
+      }
+    ],
+    "resource": [
+      {
+        "files": [
+          "images/**"
+        ],
+        "exclude": [
+            "**/bin/**",
+            "**/obj/**",
+            "_site/**",
+			"images/_**"
+        ]
+      }
+    ],
+    "overwrite": [
+      {
+        "files": [],
+        "exclude": [
+          "**/bin/**",
+          "**/obj/**",
+          "_site/**"
+        ]
+      }
+    ],
+    "dest": "_site",
+	"globalMetadata": {
+		"_appFooter": "© 2021-2022 Aiko IT Systems",
+		"_enableSearch": true,
+		"_enableNewTab": true,
+		"_appTitle": "AITSYS.Mailcow Docs",
+		"_gitUrlPattern": "git",
+		"_gitContribute": {
+			"repo": "https://github.com/Aiko-IT-Systems/AITSYS.Mailcow",
+			"branch": "main"
+		}
+    },
+	"disableGitFeatures": false,
+	"exportRawModel": true,
+	"rawModelOutputFolder": "_site/.bot-query/raw/",
+    "globalMetadataFiles": [],
+    "fileMetadataFiles": [],
+    "template": [
+		"dcs"
+    ],
+    "postProcessors": ["ExtractSearchIndex", "CustomMemberIndexer"],
+    "noLangKeyword": false,
+    "keepFileLink": false,
+    "cleanupCacheHistory": false,
+	"sitemap": {
+		"baseUrl": "https://mc.docs.aitsys.dev/",
+		"changefreq": "hourly",
+		"priority": 1.0
+	}
+  }
+}

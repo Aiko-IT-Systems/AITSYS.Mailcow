@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.31911.260
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution", "Solution", "{45D3D338-6122-4037-AD90-03D8D9CA2B4D}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		.gitattributes = .gitattributes
+		Targets\AITSYS.targets = Targets\AITSYS.targets
+		Targets\NuGet.targets = Targets\NuGet.targets
+		Targets\Package.targets = Targets\Package.targets
+		rebuild-docs.ps1 = rebuild-docs.ps1
+		s_oneclick-rebuild-docs.ps1 = s_oneclick-rebuild-docs.ps1
+		Targets\Version.targets = Targets\Version.targets
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AITSYS.Mailcow", "AITSYS.Mailcow\AITSYS.Mailcow.csproj", "{284DFA37-717F-4361-A33F-5DB58057C05F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{284DFA37-717F-4361-A33F-5DB58057C05F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{284DFA37-717F-4361-A33F-5DB58057C05F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{284DFA37-717F-4361-A33F-5DB58057C05F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{284DFA37-717F-4361-A33F-5DB58057C05F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {51CEC82D-71C2-4ED8-9B3E-866D6DADC206}
+	EndGlobalSection
+EndGlobal

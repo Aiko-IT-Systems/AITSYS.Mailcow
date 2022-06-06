@@ -1,55 +1,83 @@
-name: "DisCatSharp.Mailcow Docs"
-
+name: "Documentation"
 on:
   push:
     branches: [ main ]
   workflow_dispatch:
-
 jobs:
   build:
-    runs-on: ubuntu-latest
-
+    runs-on: windows-latest
+    name: Build documentation
     steps:
-    - uses: actions/checkout@v2
+    - name: Checkout repository
+      uses: actions/checkout@v3
       with:
-        path: DisCatSharp.Mailcow
-    - uses: actions/checkout@v2
+        path: AITSYS.Mailcow
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v2
       with:
-        repository: Aiko-IT-Systems/DisCatSharp.Mailcow.Docs
-        path: DisCatSharp.Mailcow.Docs
-        token: ${{ secrets.DOCS_TOKEN }}
-
-    - name: Get SSH
-      uses: webfactory/ssh-agent@v0.5.3
-      with:
-          ssh-private-key: ${{ secrets.AITSYS_SSH }}
-
+        dotnet-version: 6.0.202
+    - name: Restore packages
+      working-directory: AITSYS.Mailcow
+      run: dotnet restore
+    - name: Build library
+      working-directory: AITSYS.Mailcow
+      run: dotnet build -c Release
+    - name: Test library
+      working-directory: AITSYS.Mailcow
+      run: dotnet test -c Release
+      continue-on-error: true
     - name: Build Docs
-      working-directory: ./DisCatSharp.Mailcow
+      working-directory: AITSYS.Mailcow
       shell: pwsh
-      run: |
-        ./rebuild-docs.ps1 -DocsPath "./DisCatSharp.Mailcow.Docs" -Output ".." -PackageName "dcs-mailcow-docs"
-
-    - name: Purge old docs
-      working-directory: ./DisCatSharp.Mailcow.Docs
-      run: |
-        shopt -s extglob
-        rm -rf !(.git|.gitignore)
-
-    - name: Extract new docs
-      run: |
-        tar -xf dcs-mailcow-docs.tar.xz -C ./DisCatSharp.Mailcow.Docs
-
-    - name: Commit and push changes
-      uses: EndBug/add-and-commit@master
+      run: ./rebuild-docs.ps1 -DocsPath "./AITSYS.Mailcow.Docs" -Output ".." -PackageName "aitsys-mailcow-docs"
+    - name: Upload packed docs
+      uses: actions/upload-artifact@v3
       with:
-        cwd: ./DisCatSharp.Mailcow.Docs
-        default_author: github_actions
-        author_name: DisCatSharp
-        author_email: discatsharp@aitsys.dev
+        name: aitsys-mailcow-docs.zip
+        path: aitsys-mailcow-docs.zip
+        retention-days: 30
+  documentation:
+    runs-on: windows-latest
+    name: Upload documentation
+    needs: build
+    steps:
+    - name: Checkout docs repository
+      uses: actions/checkout@v3
+      with:
+        repository: Aiko-IT-Systems/AITSYS.Mailcow.Docs
+        path: AITSYS.Mailcow.Docs
+        token: ${{ secrets.NYUW_TOKEN_GH }}
+    - name: Download packed docs
+      uses: actions/download-artifact@v3
+      with:
+        name: aitsys-mailcow-docs.zip
+    - name: Purge old docs
+      working-directory: AITSYS.Mailcow.Docs
+      shell: pwsh
+      run: Get-ChildItem -Exclude .git* | Remove-Item -Recurse -Force
+    - name: Extract new docs
+      shell: pwsh
+      run: Expand-Archive -Path aitsys-mailcow-docs.zip AITSYS.Mailcow.Docs/
+    - name: Commit and push changes
+      uses: EndBug/add-and-commit@main
+      with:
+        cwd: AITSYS.Mailcow.Docs
+        default_author: user_info
+        author_name: AITSYS Team
+        author_email: team@aitsys.dev
+        committer_name: NyuwBot
+        committer_email: nyuw@aitsys.dev
+        commit: --signoff
         message: 'Docs update for commit ${{ github.repository }} (${{ github.sha }})'
-        pull: 'NO-PULL'
-
-    - name: Publish to Prod
-      run: |
-        ssh -o StrictHostKeyChecking=no -T root@80.153.182.68 -f 'cd /var/www/dcsm/docs && git pull -f'
+  publish-main:
+    runs-on: ubuntu-latest
+    name: Publish documentation on main server
+    needs: documentation
+    steps:
+    - name: Get SSH Agent
+      uses: webfactory/ssh-agent@v0.5.4
+      with:
+        ssh-private-key: ${{ secrets.AITSYS_SSH }}
+    - name: Publish on server
+      continue-on-error: true
+      run: ssh -o StrictHostKeyChecking=no -T root@80.153.182.68 -f 'cd /var/www/mc.aitsys.dev/docs && git pull -f'

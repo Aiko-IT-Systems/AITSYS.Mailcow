@@ -2,7 +2,7 @@
   branches:
     only:
     - main
-  version: 1.0.1-nightly-{build}
+  version: 1.0.0-nightly-{build}
   pull_requests:
     do_not_increment_build_number: true
   skip_tags: true
@@ -44,12 +44,12 @@
   artifacts:
   - path: artifacts\*.snupkg
   - path: artifacts\*.nupkg
-  - path: artifacts\dcs-mailcow-docs.tar.xz
+  - path: artifacts\aitsys-mailcow-docs.tar.xz
   deploy:
   - provider: NuGet
     server:
     api_key:
-      secure: eml4lPttwjBZg7WdwX3tbx34ZDNssgb2zwthatNbolRY0PnaCIswbuPClf9IWrw7
+      secure: oy2dnnedgx54luwttcnaa77eirobzedurggrfgpodaoa74
     skip_symbols: false
   - provider: GitHub
     auth_token:
@@ -114,12 +114,12 @@
   artifacts:
   - path: artifacts\*.snupkg
   - path: artifacts\*.nupkg
-  - path: artifacts\dcs-mailcow-docs.tar.xz
+  - path: artifacts\aitsys-mailcow-docs.tar.xz
   deploy:
   - provider: NuGet
     server:
     api_key:
-      secure: eml4lPttwjBZg7WdwX3tbx34ZDNssgb2zwthatNbolRY0PnaCIswbuPClf9IWrw7
+      secure: oy2dnnedgx54luwttcnaa77eirobzedurggrfgpodaoa74
     skip_symbols: false
   - provider: GitHub
     auth_token:
